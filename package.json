@@ -1,0 +1,22 @@
+{
+  "name": "Mind Or Matter",
+  "version": "0.2.0",
+  "description": "Mind Or Matter is a 2.5D Fighter Engine.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index_HEROKU.js"
+  },
+  "engines": {
+    "node": "14.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jonathanneels/MindOrMatter"
+  },
+  "keywords": [
+    "node",
+    "heroku"
+  ],
+  "author": "Jonathan F.M. Neels",
+  "license": "MIT"
+}

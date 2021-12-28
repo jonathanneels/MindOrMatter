@@ -1,0 +1,7 @@
+* socket multiplayer
+* more than 1 frame for an action handler (idle & movement are defaults). 
+* More characters.
+* More specials, moves, grabs, ...
+* Modes.
+* Jumping on floors above level 1.
+ 
