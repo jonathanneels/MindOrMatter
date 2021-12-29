@@ -9,7 +9,7 @@ const options = {
   cert: fs.readFileSync('test.crt')//cert.pem
 };
 
- var port = 8000;
+ var port = 11111;
  var ip= "127.0.0.1";
  
  const wss = new WebSocket.Server({ port: port+1 });
