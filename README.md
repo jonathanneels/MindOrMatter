@@ -1,4 +1,4 @@
-# MindOrMatter
+# Mind Or Matter
 Mind Or Matter is a 2.5D Fighter Engine; open source project written in javascript (babylon js + jquery)
 
 Multiplayer works locally (albeit simple), but is not functional in the Heroku url. 
