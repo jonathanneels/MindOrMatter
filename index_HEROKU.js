@@ -7,8 +7,7 @@ const path = require('path');
 //const WebSocket = require('ws');//https://www.linode.com/docs/guides/introduction-to-websockets/
 
  
-const directoryPath = path.join(__dirname, 'static');
-
+ 
  var port = process.env.PORT || 8000;
   
 // const wss = new WebSocket.Server({ port: port+1 });
