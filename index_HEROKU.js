@@ -18,14 +18,8 @@ const directoryPath = path.join(__dirname, 'static');
  
  const wss = new WebSocket.Server({ port: port+1 });
 
- require('dns').lookup(require('os').hostname(), function (err, add, fam) {
- // console.log('addr: '+add);
-  ip = add; // if netwerk allows it - Windows  Firewall - https://stackoverflow.com/questions/5489956/how-could-others-on-a-local-network-access-my-nodejs-app-while-its-running-on/5490033
- 	console.log("HTTPS server started at https://"+ip+":" + port.toString());
-	
-	launchServer();
-	
-});
+ 	launchServer();
+
 
 function launchServer(){
 https.createServer(options, function (req, res) { 
