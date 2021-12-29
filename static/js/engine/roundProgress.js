@@ -230,7 +230,7 @@ function startOfGame()
 	    $(document).ready(function(){ 
 
  
- var level= $.getJSON({'url': "static/assets/stages/ukyo/stage.config", 'async': false});  
+ var level= $.getJSON({'url': "static/assets/stages/chess/stage.config", 'async': false});  
 gameSettings.stage= JSON.parse(level.responseText);
  
  
