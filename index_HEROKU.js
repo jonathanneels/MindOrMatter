@@ -4,7 +4,7 @@ const https = require('https');
 var os = require( 'os' );
 const path = require('path');
 
-const WebSocket = require('ws');//https://www.linode.com/docs/guides/introduction-to-websockets/
+//const WebSocket = require('ws');//https://www.linode.com/docs/guides/introduction-to-websockets/
 
 const options = {
   key: fs.readFileSync('testkey.pem'),
@@ -16,7 +16,7 @@ const directoryPath = path.join(__dirname, 'static');
  var port = process.env.PORT || 8000;
  var ip= "0.0.0.0";
  
- const wss = new WebSocket.Server({ port: port+1 });
+// const wss = new WebSocket.Server({ port: port+1 });
 
  	launchServer();
 
@@ -62,7 +62,7 @@ var feedbackUrl = req.url;
 });}
 
 
-wss.on('connection', function connection(ws) {
+/*wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
 	  var feedbackList= message.split(',');  // prefer list instead of json, much smaller data exchange.
 	  wss[feedbackList[0]]=feedbackList;
@@ -103,6 +103,6 @@ wss.on('connection', function connection(ws) {
 
  // ws.send( 'something'); => outside is once
 });
-
+*/
 
  
