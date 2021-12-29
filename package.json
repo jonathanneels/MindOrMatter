@@ -1,5 +1,5 @@
 {
-  "name": "Mind Or Matter",
+  "name": "mind_or_matter",
   "version": "0.2.0",
   "description": "Mind Or Matter is a 2.5D Fighter Engine.",
   "main": "index.js",
