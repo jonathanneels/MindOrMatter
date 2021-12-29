@@ -1,4 +1,4 @@
-const https = require('https');
+const http = require('http');
 //const http = require('http');
  const fs = require('fs');
 var os = require( 'os' );
@@ -6,23 +6,18 @@ const path = require('path');
 
 //const WebSocket = require('ws');//https://www.linode.com/docs/guides/introduction-to-websockets/
 
-const options = {
-  key: fs.readFileSync('testkey.pem'),
-  cert: fs.readFileSync('test.crt')//cert.pem
-};
-
+ 
 const directoryPath = path.join(__dirname, 'static');
 
  var port = process.env.PORT || 8000;
- var ip= "0.0.0.0";
- 
+  
 // const wss = new WebSocket.Server({ port: port+1 });
 
  	launchServer();
 
 
 function launchServer(){
-https.createServer(options, function (req, res) { 
+http.createServer((req, res) => {
 
 var feedbackUrl = req.url;
 
@@ -58,7 +53,7 @@ var feedbackUrl = req.url;
   }
   
 }).listen(port, () => {
-    console.log("Our app is running on port ${ PORT }. (Default = 8000)");
+    console.log("Running on port ${ PORT }. (Default = 8000). SET  static/assets/gameConfig.config to correct directory!");
 });}
 
 
