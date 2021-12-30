@@ -9,8 +9,10 @@ START OFFLINE:
 Download this project. 
 
 Make sure you've changed the values 'server' and 'ws' in \static\assets\gameConfig.config to: 
-"server":"https://192.168.1.40:11111", 
+
+"server":"https://192.168.1.40:11111", => current IP of your local machine
 "ws":"ws://127.0.0.1:11112"
+
 otherwise the project will not launch. 
 After the aforementioned alteration you can run the project by opening cmd in the directory and then type 'node index.js'.
 ----------------------------------------------
