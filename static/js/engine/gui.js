@@ -652,6 +652,21 @@ else if (gameSettings.gameMode == 4){ serverIdText.text= "Training"; if(!$(".mul
 
 }
 
+/////////////////////////////////////////////////SCORE DISTRIBUTION/////////////////////////////////////////////////
+if(isMobile())  /// if mobile, score must be set p1score => p2score & vice versa (BUG TO BE HANDLED!?)
+{
+	p1ScoreText.text="";
+for (var i=0; i< gameSettings.p2Score; i++){
+p1ScoreText.text+="🟩"
+}
+
+p2ScoreText.text="";
+for (var i=0; i< gameSettings.p1Score; i++){
+p2ScoreText.text+="🟩"
+}
+	
+}
+else{
 p1ScoreText.text="";
 for (var i=0; i< gameSettings.p1Score; i++){
 p1ScoreText.text+="🟩"
@@ -661,7 +676,10 @@ p2ScoreText.text="";
 for (var i=0; i< gameSettings.p2Score; i++){
 p2ScoreText.text+="🟩"
 }
-  }, 10);
+}
+////////////////////////////////////////////////////////////////////////////////////////
+ 
+ }, 10);
   }
   
   var  p1Text = createText(gameSettings.startCheerText+" P1!");
