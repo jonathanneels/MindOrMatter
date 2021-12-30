@@ -91,7 +91,8 @@ else
 }
 	$("#guide").css("height","200px"); 
 $("#guide").scrollTop()
-	 	$("#guide").css("overflow","hidden");
+//	 	$("#guide").css("overflow","hidden");
+$("#guide").css("overflow","auto");
 
 console.log( gameSettings["whoCharIndexKeysP1"])
  preloadAssetData();
@@ -256,6 +257,24 @@ gameSettings.isEndgame=true;
 
 
 }, false);
+}
+
+function openFullscreen()
+{
+/* Get the element you want displayed in fullscreen mode (a video in this example): */
+var elem = document.getElementById("body");
+/* When the openFullscreen() function is executed, open the video in fullscreen.
+Note that we must include prefixes for different browsers, as they don't support the requestFullscreen method yet */
+   if (!document.fullscreenElement) {
+
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+  }}
+ 
 }
 function startProject(isSkipLaunchGame)
 {

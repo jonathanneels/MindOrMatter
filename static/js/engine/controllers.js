@@ -547,6 +547,17 @@ function keyBoardController(whoKeys)
 }
 
 
+var kickTimeout;
+var uniqueTimeout;
+ var verticalTimeout;
+var horizontalTimeout;
+var rangeTimeout;
+
+var kickStartTimeout;
+var uniqueStartTimeout;
+ var verticalStartTimeout;
+var horizontalStartTimeout;
+var rangeStartTimeout;
 
 function touchController(whoKeys)
 {
@@ -555,13 +566,15 @@ function touchController(whoKeys)
  
  				    if(whoKeys["controlID"] != 0){return;}
 
- whoKeys.kick=1;
+   clearTimeout(kickStartTimeout);
+kickStartTimeout=setTimeout(function(){  whoKeys.kick=1;}, 50);
 
   }).bind('mouseup mouseleave touchend', function() {
 	  
 	   				    if(whoKeys["controlID"] != 0){return;}
 
- whoKeys.kick=0;
+clearTimeout(kickTimeout);
+kickTimeout=setTimeout(function(){ whoKeys.kick=0; }, 100);
 
   });
   
@@ -569,13 +582,16 @@ function touchController(whoKeys)
  
   				    if(whoKeys["controlID"] != 0){return;}
 
- whoKeys.unique=1;
+  clearTimeout(uniqueStartTimeout);
+uniqueStartTimeout=setTimeout(function(){  whoKeys.unique=1;}, 50);
 
   }).bind('mouseup mouseleave touchend', function() {
 	  
 	   				    if(whoKeys["controlID"] != 0){return;}
 
- whoKeys.unique=0;
+
+clearTimeout(uniqueTimeout);
+uniqueTimeout=setTimeout(function(){ whoKeys.unique=0;}, 100);
 
   });
   
@@ -583,39 +599,44 @@ function touchController(whoKeys)
 		 
 		  				    if(whoKeys["controlID"] != 0){return;} 
  
- whoKeys.verticalhit=1;
+ clearTimeout(verticalStartTimeout);
+verticalStartTimeout=setTimeout(function(){  whoKeys.verticalhit=1;}, 50);
 
   }).bind('mouseup mouseleave touchend', function() {
 	  
 	   				    if(whoKeys["controlID"] != 0){return;}
 
- whoKeys.verticalhit=0;
+clearTimeout(verticalTimeout);
+verticalTimeout=setTimeout(function(){  whoKeys.verticalhit=0;}, 100);
 
   });
        $('#btnHorizontal').on('mousedown touchstart', function(e) {
  
   				    if(whoKeys["controlID"] != 0){return;}
 
- whoKeys.horizontalhit=1;
+clearTimeout(horizontalStartTimeout);
+horizontalStartTimeout=setTimeout(function(){  whoKeys.horizontalhit=1;}, 50);
 
   }).bind('mouseup mouseleave touchend', function() {
 	  
 	   				    if(whoKeys["controlID"] != 0){return;}
 
- whoKeys.horizontalhit=0;
+clearTimeout(horizontalTimeout);
+horizontalTimeout=setTimeout(function(){  whoKeys.horizontalhit=0;}, 100);
 
   });
          $('#btnRange').on('mousedown touchstart', function(e) {
- 
-  				    if(whoKeys["controlID"] != 0){return;}
+   				    if(whoKeys["controlID"] != 0){return;}
 
- whoKeys.rangehit=1;
+ clearTimeout(rangeStartTimeout);
+rangeStartTimeout=setTimeout(function(){  whoKeys.rangehit=1;}, 50);
 
   }).bind('mouseup mouseleave touchend', function() {
 	  
 	   				    if(whoKeys["controlID"] != 0){return;}
 
- whoKeys.rangehit=0;
+clearTimeout(rangeTimeout);
+rangeTimeout=setTimeout(function(){ whoKeys.rangehit=0;}, 100);
 
   });
 
