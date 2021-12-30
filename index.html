@@ -33,12 +33,13 @@ overflow:hidden;
   padding: 20px;
   text-align: center;
   text-decoration: none;
-   height: 300px;
+   height: 350px;
   width: 300px;
   border-radius: 50%;
   border: 1px solid #05AA6D;
   opacity:0.6;
   font-size:large;
+  z-index:99999;
  }
  
  #btnStartGame, #btnReturn{ 
@@ -131,19 +132,45 @@ position:absolute;
   opacity:0.8;
   font-size:large;
 }
+#btnFScreen
+{
+   background-color: #04AA6D;
+  border: none;
+  color: white;
+   text-align: center;
+  text-decoration: none;
+   border-radius: 50%;
+  border: 1px solid #05AA6D;
+  opacity:0.8;
+  font-size:large;
+  margin-left:5px;
+  margin-bottom: 15px;
+
+}
 #btnHelp{right: 0;}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
 
     </style>
 	 <script src="static/js/lib/babylon.js">	</script>	 
 	 <script src="static/js/lib/jquery.js">	</script>
 	
 </head>
-<body>
+<body id="body">
 
 <button type="button" id="btnSettings" class="mainSettings"   onclick="showOptions();" >☰</button>
 <button type="button" id="btnHelp" class="mainSettings" onclick="moveList2PlayerSelect();">?</button>
+<button type="button" id="btnFScreen" class="" style="position:absolute; bottom:0; left:0;"onclick="openFullscreen();">[-]</button>
 
-    <div id="guide"  >
+    <div id="guide" class="noselect"  >
 	<h2 id="hP1">
 	
 
@@ -155,13 +182,13 @@ position:absolute;
      </span>
 	 </div>
 
-<canvas id="render-canvas"></canvas>
+<canvas id="render-canvas" class="noselect"></canvas>
  
- <button type="button" id="btnHorizontal" class="btnControl" style="background-color:yellow;color:black;" >&#x1F91C;</button>
-<button type="button"id="btnVertical" class="btnControl"   style="background-color:lightblue;color:black;"  >&#x270A;</button> <!-- REF: https://www.compart.com/en/unicode/U+270A -->
-<button type="button" id="btnRange" class="btnControl"   style="background-color:red;color:black;"  >&#8686;</button>
-<button type="button" id="btnKick" class="btnControl"   style="background-color:white;color:black;"  >&#x1F5F2;</button><!-- in this setup it is 'special' -->
-<button type="button" id="btnUnique" class="btnControl"  style="background-color:violet;color:black;" >&#x1F0A0;</button>
+ <button type="button" id="btnHorizontal" class="btnControl noselect" style="background-color:yellow;color:black;" >&#x1F91C;</button>
+<button type="button"id="btnVertical" class="btnControl noselect"   style="background-color:lightblue;color:black;"  >&#x270A;</button> <!-- REF: https://www.compart.com/en/unicode/U+270A -->
+<button type="button" id="btnRange" class="btnControl noselect"   style="background-color:red;color:black;"  >&#8686;</button>
+<button type="button" id="btnKick" class="btnControl noselect"   style="background-color:white;color:black;"  >&#x1F5F2;</button><!-- in this setup it is 'special' -->
+<button type="button" id="btnUnique" class="btnControl noselect"  style="background-color:violet;color:black;" >&#x1F0A0;</button>
 
 
 	 <script src="static/js/engine/helpers.js">	</script>	
