@@ -11,6 +11,7 @@ Download this project.
 Make sure you've changed the values 'server' and 'ws' in \static\assets\gameConfig.config to: 
 
 "server":"https://192.168.1.40:11111", => current IP of your local machine
+
 "ws":"ws://127.0.0.1:11112"
 
 otherwise the project will not launch. 
