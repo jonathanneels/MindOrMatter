@@ -268,16 +268,21 @@ function endOfGame()
 		  }
   gameSettings.textBoxTimeout= setTimeout(function(){ gameSettings.textBox.text =  ""; }, 1500);
 
+						if(keysP2.character.maxHealth != keysP2.character.health){
 	keysP1.ScoreAttackPoints +=  Math.abs(Math.ceil( keysP1.character.health*10 ));
  		keysP1.Points.text=  "Score: \n"+parseInt(keysP1.ScoreAttackPoints).toString() ;
-
-
+					}
+						if(keysP1.character.maxHealth != keysP1.character.health){
 	keysP2.ScoreAttackPoints += Math.abs(Math.ceil( keysP2.character.health*10 ));
  		keysP2.Points.text=  "Score: \n"+parseInt(keysP2.ScoreAttackPoints).toString() ;
-
+						}
 		delete document["allowCountDownTimer"];
 
 		 if( (gameSettings.gameMode ==1 ) &&  !document["demoMode"] ){ // arcade mode
+		 
+		 	keysP2.ScoreAttackPoints  = 0;
+ 		keysP2.Points.text=  "Score: \n"+parseInt(keysP2.ScoreAttackPoints).toString() ;
+
 		 	 if(typeof  document["arcadeStageIncrease"] == "undefined" ){document["arcadeStageIncrease"] =0;}
 		 document["arcadeStageIncrease"] +=1;		 
 		  if (document["arcadeStageIncrease"] >=8)
@@ -332,6 +337,18 @@ $("#hP2").text(keysP2.character.texts.victoryTexts[getRandomInt(0, keysP2.charac
 }
 }
 
+
+if(gameSettings.gameMode ==2 ){
+	
+			 	keysP2.ScoreAttackPoints  = 0;
+ 		keysP2.Points.text=  "Score: \n"+parseInt(keysP2.ScoreAttackPoints).toString() ;
+
+	keysP1.character.health= keysP1.character.maxHealth;
+resetParamsPlayField();
+guiSettings(true);
+
+}
+
 if(gameSettings.aiCount == 2)
 {
 	$("#btnYes").hide();
@@ -342,13 +359,8 @@ $("#hP1").text( "New match in 10 seconds.");$("#hP2").text( "...");
 		}
 setTimeout(function(){ 
 
-if(gameSettings.gameMode ==2 ){
-	keysP1.character.health= keysP1.character.maxHealth;
-resetParamsPlayField();
-guiSettings(true);
 gameSettings.isEndgame=false; 
 
-}
  
 restartGame();	
  
@@ -597,14 +609,17 @@ setTimeout(function(){ newRound(true);}, 3000);
 function newRound(isDontSkipScore)
 {
 		if(isDontSkipScore){
+			if(keysP2.character.maxHealth != keysP2.character.health){
 		keysP1.ScoreAttackPoints += Math.abs(Math.ceil( keysP1.character.health*10 ));
  		keysP1.Points.text=  "Score: \n"+keysP1.ScoreAttackPoints.toString() ;
+		}
 		
 		if(gameSettings.gameMode !==1){
+						if(keysP1.character.maxHealth != keysP1.character.health){
 	keysP2.ScoreAttackPoints += Math.abs(Math.ceil( keysP2.character.health*10 ));
  		keysP2.Points.text=  "Score: \n"+keysP2.ScoreAttackPoints.toString() ;
 }
-}
+}}
 	 if(gameSettings.gameMode ==2  ){ // survival mode
 	  
 	  if(typeof document["survivalStageIncrease"] == "undefined"){document["survivalStageIncrease"]=0;}
