@@ -182,6 +182,11 @@ for (let i = 0; i < getRandomInt(1,5); i++) {
 function startActionsAfterDataLoad()
 {
 
+			   		keysP1.ScoreAttackPoints  = 0;
+ 		keysP1.Points.text=  "Score: \n"+keysP1.ScoreAttackPoints.toString() ;
+
+		   		keysP2.ScoreAttackPoints  = 0;
+ 		keysP2.Points.text=  "Score: \n"+keysP2.ScoreAttackPoints.toString() ;
 
  if(!document["demoMode"]){
 	 backgroundMusicLaunch(gameSettings.stage.backgroundMusic); 
@@ -263,6 +268,12 @@ function endOfGame()
 		  }
   gameSettings.textBoxTimeout= setTimeout(function(){ gameSettings.textBox.text =  ""; }, 1500);
 
+	keysP1.ScoreAttackPoints +=  Math.abs(Math.ceil( keysP1.character.health*10 ));
+ 		keysP1.Points.text=  "Score: \n"+keysP1.ScoreAttackPoints.toString() ;
+
+
+	keysP2.ScoreAttackPoints += Math.abs(Math.ceil( keysP2.character.health*10 ));
+ 		keysP2.Points.text=  "Score: \n"+keysP2.ScoreAttackPoints.toString() ;
 
 		delete document["allowCountDownTimer"];
 
@@ -375,7 +386,7 @@ gameSettings.p1Score=0;
 gameSettings.p2Score=0;
 
 startActionsAfterDataLoad();
- newRound();	
+ newRound( );	
  
  setTimeout(function(){  
  
@@ -580,13 +591,20 @@ function drawRound()
 {
  
 setTimeout(function(){ timerText.text= "Draw. You can do better!";
-setTimeout(function(){ newRound();}, 3000);
+setTimeout(function(){ newRound(true);}, 3000);
 }, 3000);
 }
-function newRound()
+function newRound(isDontSkipScore)
 {
-	
-
+		if(isDontSkipScore){
+		keysP1.ScoreAttackPoints += Math.abs(Math.ceil( keysP1.character.health*10 ));
+ 		keysP1.Points.text=  "Score: \n"+keysP1.ScoreAttackPoints.toString() ;
+		
+		if(gameSettings.gameMode !==1){
+	keysP2.ScoreAttackPoints += Math.abs(Math.ceil( keysP2.character.health*10 ));
+ 		keysP2.Points.text=  "Score: \n"+keysP2.ScoreAttackPoints.toString() ;
+}
+}
 	 if(gameSettings.gameMode ==2  ){ // survival mode
 	  
 	  if(typeof document["survivalStageIncrease"] == "undefined"){document["survivalStageIncrease"]=0;}
@@ -597,6 +615,9 @@ function newRound()
 		return;
 	}
 	else{
+			keysP2.ScoreAttackPoints  = 0;
+ 		keysP2.Points.text=  "Score: \n"+keysP2.ScoreAttackPoints.toString() ;
+
 		  setNewCharacter(keysP2); 
 
 	  document["survivalStageIncrease"]+=1;
@@ -659,7 +680,7 @@ whoKeys.portraitBox.source=whoKeys.character.images.portraitSadImages[0];
 gameSettings.p1Score+=1;
 setTimeout(function(){
   if(gameSettings.rounds > gameSettings.p1Score){  
-  newRound();
+  newRound(true);
   }else{endOfGame();}
   }, 2000);
 } else if((typeof document["p2HaltGameSignalShown"] == "undefined" || !document["p2HaltGameSignalShown"])   && whoKeys.who ==0 && whoKeys.character.health < whoKeys.hostileKey.character.health)
@@ -672,7 +693,7 @@ whoKeys.portraitBox.source=whoKeys.character.images.portraitSadImages[0];
 gameSettings.p2Score+=1;
 setTimeout(function(){
   if(gameSettings.rounds > gameSettings.p2Score){  
-  newRound();
+  newRound(true);
   }else{endOfGame();}
   }, 2000);
 }
@@ -713,7 +734,7 @@ gameSettings.p2Score+=1;
 setTimeout(function(){
 
   if(gameSettings.rounds > gameSettings.p2Score  || ( gameSettings.gameMode ==2 && gameSettings.p1Score <1)){
-  newRound();
+  newRound(true);
   }
   else{endOfGame();}
     }, 2000);
@@ -762,7 +783,7 @@ whoKeys.portraitBox.source=whoKeys.character.images.portraitSadImages[0];
 gameSettings.p1Score+=1;
 setTimeout(function(){
   if(gameSettings.rounds > gameSettings.p1Score || ( gameSettings.gameMode ==2 && gameSettings.p2Score <1)){  
-  newRound();
+  newRound(true);
   }else{endOfGame();}
   }, 2000);
 }
@@ -793,10 +814,15 @@ keysP1.portraitBox.source=keysP1.character.images.portraitSadImages[0];
 gameSettings.p2Score+=1;
 clearTimeout(keysP1.textBoxTimeout);
   keysP1.textBox.text =  ("You've crossed the line!"); 
+  
+     		keysP1.ScoreAttackPoints -= Math.ceil( keysP1.character.maxHealth*100 );
+			if(keysP1.ScoreAttackPoints <0){keysP1.ScoreAttackPoints=0;}
+ 		keysP1.Points.text=  "Score: \n"+keysP1.ScoreAttackPoints.toString() ;
+
    setTimeout(function(){  
 
   if(gameSettings.rounds > gameSettings.p2Score || ( gameSettings.gameMode ==2 && gameSettings.p2Score > gameSettings.p1Score  )){  
-  newRound();
+  newRound(true);
   }
   else{endOfGame();}
 }, 2000);
@@ -813,10 +839,15 @@ keysP1.portraitBox.source=keysP1.character.images.portraitSadImages[0];
 gameSettings.p2Score+=1;
 clearTimeout(keysP1.textBoxTimeout);
       keysP1.textBox.text =  ("You've crossed the line!");  
+	  
+	       		keysP1.ScoreAttackPoints -= Math.ceil( keysP1.character.maxHealth*100 );
+							if(keysP1.ScoreAttackPoints <0){keysP1.ScoreAttackPoints=0;}
+ 		keysP1.Points.text=  "Score: \n"+keysP1.ScoreAttackPoints.toString() ;
+
 	 setTimeout(function(){  
 
   if(gameSettings.rounds > gameSettings.p2Score || ( gameSettings.gameMode ==2 && gameSettings.p1Score <1)){  
-  newRound();
+  newRound(true);
   }
   else{endOfGame();}}, 2000);
   return true;
@@ -831,9 +862,14 @@ keysP2.portraitBox.source=keysP2.character.images.portraitSadImages[0];
 gameSettings.p1Score+=1;
 clearTimeout(keysP2.textBoxTimeout);
    keysP2.textBox.text =  ("You've crossed the line!"); 
+   
+   		keysP2.ScoreAttackPoints -= Math.ceil( keysP2.character.maxHealth*100 );
+					if(keysP2.ScoreAttackPoints <0){keysP2.ScoreAttackPoints=0;}
+ 		keysP2.Points.text=  "Score: \n"+keysP2.ScoreAttackPoints.toString() ;
+
  setTimeout(function(){
   if(gameSettings.rounds > gameSettings.p1Score || ( gameSettings.gameMode ==2  && gameSettings.p1Score > gameSettings.p2Score )){  
-  newRound();
+  newRound(true);
   }
   else{endOfGame();}
 }, 2000);
@@ -848,10 +884,15 @@ keysP2.portraitBox.source=keysP2.character.images.portraitSadImages[0];
 gameSettings.p1Score+=1;
  clearTimeout(keysP2.textBoxTimeout);
     keysP2.textBox.text =  ("You've crossed the line!");  
+	
+	   		keysP2.ScoreAttackPoints -= Math.ceil( keysP2.character.maxHealth*100 );
+								if(keysP2.ScoreAttackPoints <0){keysP2.ScoreAttackPoints=0;}
+ 		keysP2.Points.text=  "Score: \n"+keysP2.ScoreAttackPoints.toString() ;
+
  setTimeout(function(){
 
   if(gameSettings.rounds > gameSettings.p1Score || ( gameSettings.gameMode ==2 && gameSettings.p2Score <1)){  
-  newRound();
+  newRound(true);
   }
   else{endOfGame();}
 }, 2000);

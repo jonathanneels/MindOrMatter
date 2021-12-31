@@ -43,6 +43,8 @@ function checkForStunInjection(whoKeys)
 	
 	 if(whoKeys["nextHitCausesStun"])
 	  {
+		  whoKeys.ScoreAttackPoints +=300*(whoKeys.comboCount+1);
+
 		  whoKeys.hostileKey.isStunned=true;
 		  delete whoKeys["nextHitCausesStun"]; whoKeys.hostileKey["STUNNED"]=true;
 		  whoKeys.hostileKey.textBox.text =  ("STUNNED");clearTimeout(whoKeys.hostileKey.textBoxTimeout);
@@ -170,7 +172,7 @@ whoKeys.hostileKey.textBoxTimeout= setTimeout(function(){ whoKeys.hostileKey.tex
 			whoKeys.hostileKey.isDown=false;
 
 whoKeys.hostileKey.character.launchedRemainTime=whoKeys.character.launchingTime; whoKeys.hostileKey.comboCount  =0;whoKeys.comboCount  +=1; whoKeys.hostileKey.character.health-=whoKeys.character.special+ whoKeys.character.damageModifier +6;whoKeys.character.special=0;
-if(whoKeys.character.isWithHealthRestore){whoKeys.character.health+=6+ whoKeys.character.damageModifier ;} whoKeys.hostileKey.textBox.text =  ("FLESH RIPPED!");clearTimeout(whoKeys.hostileKey.textBoxTimeout);whoKeys.hostileKey.textBoxTimeout= setTimeout(function(){ whoKeys.hostileKey.textBox.text =  ""; }, 300);
+if(whoKeys.character.isWithHealthRestore){whoKeys.character.health+=6+ whoKeys.character.damageModifier ;} whoKeys.ScoreAttackPoints +=400*(whoKeys.comboCount+1); whoKeys.hostileKey.textBox.text =  ("FLESH RIPPED!");clearTimeout(whoKeys.hostileKey.textBoxTimeout);whoKeys.hostileKey.textBoxTimeout= setTimeout(function(){ whoKeys.hostileKey.textBox.text =  ""; }, 300);
  
  
 }
@@ -428,7 +430,7 @@ whoKeys.hostileKey.textBoxTimeout= setTimeout(function(){ whoKeys.hostileKey.tex
 			whoKeys.hostileKey.isDown=false;
 
 whoKeys.hostileKey.character.launchedRemainTime=whoKeys.character.launchingTime; whoKeys.hostileKey.comboCount  =0;whoKeys.comboCount  +=1; whoKeys.hostileKey.character.health-=whoKeys.character.special+ whoKeys.character.damageModifier +6;whoKeys.character.special=0;
-if(whoKeys.character.isWithHealthRestore){whoKeys.character.health+=6+ whoKeys.character.damageModifier ;} whoKeys.hostileKey.textBox.text =  ("FLESH RIPPED!");clearTimeout(whoKeys.hostileKey.textBoxTimeout);whoKeys.hostileKey.textBoxTimeout= setTimeout(function(){ whoKeys.hostileKey.textBox.text =  ""; }, 300);
+if(whoKeys.character.isWithHealthRestore){whoKeys.character.health+=6+ whoKeys.character.damageModifier ;}whoKeys.ScoreAttackPoints +=400*(whoKeys.comboCount+1);  whoKeys.hostileKey.textBox.text =  ("FLESH RIPPED!");clearTimeout(whoKeys.hostileKey.textBoxTimeout);whoKeys.hostileKey.textBoxTimeout= setTimeout(function(){ whoKeys.hostileKey.textBox.text =  ""; }, 300);
  
  
 }
@@ -858,7 +860,11 @@ isOktoShowVisual=false;
 whoKeys.textBox.text =  ("Push failed!");clearTimeout(whoKeys.textBoxTimeout);whoKeys.textBoxTimeout= setTimeout(function(){ whoKeys.textBox.text =  ""; }, 500);
 
 
-}
+} 
+
+// whoKeys.isStunned=true;     whoKeys["STUNNED"]=true;
+//setTimeout(function(){ delete whoKeys["STUNNED"];    whoKeys.isStunned=false;  },600);
+
     break;
   case 1: // classic grab (to other side).
   
@@ -900,7 +906,7 @@ whoKeys.hostileKey.mainMesh.position.x -=1.5+whoKeys.hostileKey.character.sizeMo
 whoKeys.hostileKey.comboCount  =0;whoKeys.comboCount  +=1;whoKeys.hostileKey.character.health-=whoKeys.character.special+14;whoKeys.character.special=0; if(whoKeys.character.isWithHealthRestore){whoKeys.character.health+=14;}     
 whoKeys.hostileKey.textBox.text =  ("Thrown!");clearTimeout(whoKeys.hostileKey.textBoxTimeout);whoKeys.hostileKey.textBoxTimeout= setTimeout(function(){ whoKeys.hostileKey.textBox.text =  ""; }, 500);
 // high dps, because other valuse work with repeated attack.
-
+whoKeys.ScoreAttackPoints +=100*(whoKeys.comboCount+1);
 }
 else {
  whoKeys.back=0; whoKeys.front=0; whoKeys.right=0; whoKeys.left=0;
@@ -936,6 +942,7 @@ else //if(whoKeys.hostileKey.mainMesh.position.x >  whoKeys.mainMesh.position.x)
   
  clearTimeout(whoKeys.hostileKey.textBoxTimeout);whoKeys.textBoxTimeout= setTimeout(function(){   whoKeys.hostileKey.textBox.text =  ""; }, 500);
       setTimeout(function(){   whoKeys.hostileKey.isStunned=false;  delete whoKeys.hostileKey["STUNNED"];}, 1500);
+whoKeys.ScoreAttackPoints +=100*(whoKeys.comboCount+1);
 
  }
  else
@@ -950,6 +957,9 @@ else //if(whoKeys.hostileKey.mainMesh.position.x >  whoKeys.mainMesh.position.x)
 	whoKeys.hostileKey.comboCount  =0;whoKeys.comboCount  +=1;whoKeys.hostileKey.character.health-=whoKeys.character.special+14;whoKeys.character.special=0; if(whoKeys.character.isWithHealthRestore){whoKeys.character.health+=14;}     
 	grabActionsList(0, whoKeys);
   whoKeys.hostileKey.textBox.text =  ("Headbutted!");clearTimeout(whoKeys.hostileKey.textBoxTimeout);whoKeys.hostileKey.textBoxTimeout= setTimeout(function(){ whoKeys.hostileKey.textBox.text =  ""; }, 500);
+
+whoKeys.ScoreAttackPoints +=100*(whoKeys.comboCount+1);
+
 }
 else
 {
@@ -1007,7 +1017,8 @@ switch(id) {
 	  		 delete whoKeys["STUNNED"]; 
 	whoKeys.isDown=false;
 	whoKeys.jump=1;
-	
+	whoKeys.ScoreAttackPoints +=300*(whoKeys.comboCount+1);
+
 
 
 	  whoKeys.textBox.text =  ("Broke FREE!");
@@ -1045,6 +1056,8 @@ whoKeys.character.special+=0.01;
 whoKeys.hostileKey.isStunned=true; 
   whoKeys.hostileKey.isDown=false; 
 whoKeys.hostileKey["STUNNED"]=true;
+whoKeys.ScoreAttackPoints +=300*(whoKeys.comboCount+1);
+
 setTimeout(function(){
 	
 whoKeys.hostileKey.textBox.text =  ("STUNNED");clearTimeout(whoKeys.hostileKey.textBoxTimeout);
@@ -1102,6 +1115,7 @@ setTimeout(function(){whoKeys.kick=0;},200); // time to show other visual
 		// whoKeys.mainMeshVisual.scaling  = new BABYLON.Vector3(0.3,0.3,0.3); => alter in createCharacterShape()!
 	
 	 whoKeys.mainMesh.position.y = whoKeys.mainMesh.position.y -0.6;
+whoKeys.ScoreAttackPoints +=200*(whoKeys.comboCount+1);
 
 	
 
@@ -1129,7 +1143,8 @@ setTimeout(function(){whoKeys.kick=0;},200); // time to show other visual
 		}
 		
  		if(whoKeys["timeToHoldBeforeCastOtherAction3"] >= 3){
-		 
+		 whoKeys.ScoreAttackPoints +=500*(whoKeys.comboCount+1);
+
 		delete whoKeys["timeToHoldBeforeCastOtherAction3"] ;
 		 delete whoKeys["TIMEOUTTimeToHoldBeforeCastOtherAction3"];
 		 
@@ -1544,6 +1559,7 @@ else if(whoKeys["showBlood"])
 }
 if(whoKeys["showCriticalUpper"])
 {
+	whoKeys.ScoreAttackPoints +=500*(whoKeys.comboCount+1); 
 	delete whoKeys["showCriticalUpper"];
 	     alterEffectVisual(whoKeys,whoKeys.mainUpperMesh,whoKeys.character.images.hitEffectImages , 15);
 		      playOneShot(whoKeys.hostileKey.character.sounds.hitSound);	 
@@ -1551,6 +1567,7 @@ if(whoKeys["showCriticalUpper"])
 }
 else if(whoKeys["showCritical"])
 {
+	whoKeys.ScoreAttackPoints +=400*(whoKeys.comboCount+1); 
 	delete whoKeys["showCritical"];
 	     alterEffectVisual(whoKeys,whoKeys.mainMesh,whoKeys.character.images.hitEffectImages , 15);
 		      playOneShot(whoKeys.hostileKey.character.sounds.hitSound);	 

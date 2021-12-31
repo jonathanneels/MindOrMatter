@@ -539,7 +539,7 @@ serverIdText.bottom=50; //timerText.top=80;//"10%";
       serverIdText.fontSize = 14;
    serverIdText.top="90%";
    serverIdText.color ="black";
-    timerText = createText("hell");
+    timerText = createText("HALT");
 timerText.top=50; //timerText.top=80;//"10%";
   timerText.left=0; 
 
@@ -552,6 +552,23 @@ timerText.top=50; //timerText.top=80;//"10%";
   p2ScoreText.top=52;
      p2ScoreText.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
    p2ScoreText.left=-520;
+
+
+		if( typeof keysP1.ScoreAttackPoints == "undefined"){
+		keysP1.ScoreAttackPoints=0;}
+     p1ScoreAttackPointsText = createText("Score: \n"+keysP1.ScoreAttackPoints.toString() ); 
+ p1ScoreAttackPointsText.top= "1%";
+     p1ScoreAttackPointsText.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+   p1ScoreAttackPointsText.left="5%";
+   keysP1.Points= p1ScoreAttackPointsText;
+
+		if( typeof keysP2.ScoreAttackPoints == "undefined"){ 
+		keysP2.ScoreAttackPoints=0;}
+     p2ScoreAttackPointsText = createText(":Score \n"+keysP2.ScoreAttackPoints.toString() ); 
+ p2ScoreAttackPointsText.top= "1%";
+     p2ScoreAttackPointsText.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+   p2ScoreAttackPointsText.left="-5%";
+   keysP2.Points= p2ScoreAttackPointsText;
 
 
     var imagePortraitP1 = new BABYLON.GUI.Image("p1Image",keysP1.character.images.portraitHappyImages[0]);//REF:https://doc.babylonjs.com/divingDeeper/gui/gui#image
@@ -630,8 +647,9 @@ else if (gameSettings.gameMode == 4){ serverIdText.text= "Training"; if(!$(".mul
 	endgameTimer-=0.01;
 	timerText.text=parseFloat((endgameTimer).toFixed(0)).toString();
 	
-	
-	
+		keysP1.Points.text=  "Score: \n"+keysP1.ScoreAttackPoints.toString() ;
+	keysP2.Points.text=  "Score: \n"+keysP2.ScoreAttackPoints.toString() ;
+
 	}
 	}
    
@@ -773,7 +791,7 @@ whoKeys.back=0; whoKeys.front=0; whoKeys.right=0; whoKeys.left=0;   //whoKeys.is
 whoKeys.unique=0; whoKeys.verticalhit=0; whoKeys.horizontalhit=0; whoKeys.rangehit=0;
 whoKeys.iskickactive=false;whoKeys.isuniqueactive=false;whoKeys.israngeActive=false;whoKeys.isverticalhitactive=false;whoKeys.ishorizontalhitactive=false;
 
-  whoKeys.hostileKey.textBox.text =  ("Blocked attack");
+  whoKeys.hostileKey.textBox.text =  ("Blocked attack");	  whoKeys.hostileKey.ScoreAttackPoints +=600*(whoKeys.comboCount+1); 
     clearTimeout(whoKeys.hostileKey.textBoxTimeout);whoKeys.hostileKey.textBoxTimeout= setTimeout(function(){ whoKeys.hostileKey.textBox.text =  ""; }, 500);}
   
 
