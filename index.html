@@ -495,6 +495,7 @@ else   ( typeof projectileList[g] != "undefined" &&  typeof projectileList[i] !=
   if (projectileList[i].intersectsMesh(whoKeys.mainMesh)  ) {
   
       if (  whoKeys.shieldMesh.scaling.x > 0.1) {
+	  whoKeys.ScoreAttackPoints +=600*(whoKeys.comboCount+1); 
 	whoKeys.textBox.text =  ("Projectile Stopped!");clearTimeout(whoKeys.textBoxTimeout);whoKeys.textBoxTimeout= setTimeout(function(){ whoKeys.textBox.text =  ""; }, 500);	
 	 	  try{
   projectileList[i].material.dispose(); projectileList[i].dispose();projectileList[i]=null;     
@@ -526,6 +527,7 @@ else{
    if (projectileList[i].intersectsMesh(whoKeys.mainUpperMesh)  ) {
    
     if (  whoKeys.shieldMesh.scaling.x > 0.1) {
+		  whoKeys.ScoreAttackPoints +=600*(whoKeys.comboCount+1); 
 	whoKeys.textBox.text =  ("Projectile Stopped!");clearTimeout(whoKeys.textBoxTimeout);whoKeys.textBoxTimeout= setTimeout(function(){ whoKeys.textBox.text =  ""; }, 500);
 		  try{
 	   projectileList[i].material.dispose(); projectileList[i].dispose();projectileList[i]=null;     
@@ -656,6 +658,8 @@ whoKeys.lastComboCount = whoKeys.comboCount;
 var hitCount =Math.floor(whoKeys.comboCount);
 if(hitCount <1){hitCount=1;}
 whoKeys.textBox.text =  ("Hits "+hitCount+"X");clearTimeout(whoKeys.textBoxTimeout);whoKeys.textBoxTimeout= setTimeout(function(){ whoKeys.textBox.text =  ""; whoKeys.comboCount=0;}, 300* comboCheckResetTime);
+
+ whoKeys.ScoreAttackPoints +=50*(whoKeys.comboCount+1);
 }
 }
 function physicalLaunchedCheck(whoKeys) {
