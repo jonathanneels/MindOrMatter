@@ -564,7 +564,7 @@ case 10: // horizontal - low hit
  if (   whoKeys.attackMesh.intersectsMesh(whoKeys.hostileKey.mainUpperMesh)  ||  whoKeys.attackMesh.intersectsMesh(whoKeys.hostileKey.mainMesh)  ) {
 	 checkForStunInjection(whoKeys);
 	  whoKeys.hostileKey["showCritical"]=true;
-whoKeys.hostileKey.comboCount  =0;whoKeys.comboCount  +=1;
+whoKeys.hostileKey.comboCount  =0;whoKeys.comboCount  +=1;whoKeys.ScoreAttackPoints +=300*(whoKeys.comboCount+1); 
 whoKeys.hostileKey.character.health-=whoKeys.character.special+ whoKeys.character.damageModifier +8;whoKeys.character.special=0; 
 if(whoKeys.character.isWithHealthRestore){whoKeys.character.health+=8+ whoKeys.character.damageModifier ;}   
   
@@ -590,7 +590,7 @@ case 11: // vertical low hit
 
  if (   whoKeys.attackMesh.intersectsMesh(whoKeys.hostileKey.mainUpperMesh)  ||  whoKeys.attackMesh.intersectsMesh(whoKeys.hostileKey.mainMesh)  ) {
 	 checkForStunInjection(whoKeys);
-	  whoKeys.hostileKey["showCriticalUpper"]=true;
+	  whoKeys.hostileKey["showCriticalUpper"]=true;whoKeys.ScoreAttackPoints +=400*(whoKeys.comboCount+1); 
 whoKeys.hostileKey.comboCount  =0;whoKeys.comboCount  +=1;
 whoKeys.hostileKey.character.health-=whoKeys.character.special+ whoKeys.character.damageModifier +8;whoKeys.character.special=0; 
 if(whoKeys.character.isWithHealthRestore){whoKeys.character.health+=8+ whoKeys.character.damageModifier ;}   
@@ -1558,8 +1558,7 @@ else if(whoKeys["showBlood"])
 
 }
 if(whoKeys["showCriticalUpper"])
-{
-	whoKeys.ScoreAttackPoints +=500*(whoKeys.comboCount+1); 
+{ 
 	delete whoKeys["showCriticalUpper"];
 	     alterEffectVisual(whoKeys,whoKeys.mainUpperMesh,whoKeys.character.images.hitEffectImages , 15);
 		      playOneShot(whoKeys.hostileKey.character.sounds.hitSound);	 
@@ -1567,8 +1566,7 @@ if(whoKeys["showCriticalUpper"])
 }
 else if(whoKeys["showCritical"])
 {
-	whoKeys.ScoreAttackPoints +=400*(whoKeys.comboCount+1); 
-	delete whoKeys["showCritical"];
+ 	delete whoKeys["showCritical"];
 	     alterEffectVisual(whoKeys,whoKeys.mainMesh,whoKeys.character.images.hitEffectImages , 15);
 		      playOneShot(whoKeys.hostileKey.character.sounds.hitSound);	 
 

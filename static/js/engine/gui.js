@@ -658,9 +658,16 @@ else if (gameSettings.gameMode == 4){ serverIdText.text= "Training"; if(!$(".mul
  { gameSettings.isEndgame= true;
  timerText.text= "Time's up";
  
+ if(gameSettings.gameMode ==2)
+ {
+	 
+	 endOfGame();
+	 return;
+ }
+else{
  isEndRoundCheck(keysP1);
   isEndRoundCheck(keysP2);
-
+}
  }
  
  if(!gameSettings.isEndgame){
