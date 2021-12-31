@@ -647,8 +647,8 @@ else if (gameSettings.gameMode == 4){ serverIdText.text= "Training"; if(!$(".mul
 	endgameTimer-=0.01;
 	timerText.text=parseFloat((endgameTimer).toFixed(0)).toString();
 	
-		keysP1.Points.text=  "Score: \n"+keysP1.ScoreAttackPoints.toString() ;
-	keysP2.Points.text=  "Score: \n"+keysP2.ScoreAttackPoints.toString() ;
+		keysP1.Points.text=  "Score: \n"+parseInt(keysP1.ScoreAttackPoints).toString() ;
+	keysP2.Points.text=  "Score: \n"+parseInt(keysP2.ScoreAttackPoints).toString() ;
 
 	}
 	}

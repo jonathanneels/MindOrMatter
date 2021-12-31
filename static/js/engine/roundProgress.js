@@ -183,10 +183,10 @@ function startActionsAfterDataLoad()
 {
 
 			   		keysP1.ScoreAttackPoints  = 0;
- 		keysP1.Points.text=  "Score: \n"+keysP1.ScoreAttackPoints.toString() ;
+ 		keysP1.Points.text=  "Score: \n"+parseInt(keysP1.ScoreAttackPoints).toString() ;
 
 		   		keysP2.ScoreAttackPoints  = 0;
- 		keysP2.Points.text=  "Score: \n"+keysP2.ScoreAttackPoints.toString() ;
+ 		keysP2.Points.text=  "Score: \n"+parseInt(keysP2.ScoreAttackPoints).toString() ;
 
  if(!document["demoMode"]){
 	 backgroundMusicLaunch(gameSettings.stage.backgroundMusic); 
@@ -269,11 +269,11 @@ function endOfGame()
   gameSettings.textBoxTimeout= setTimeout(function(){ gameSettings.textBox.text =  ""; }, 1500);
 
 	keysP1.ScoreAttackPoints +=  Math.abs(Math.ceil( keysP1.character.health*10 ));
- 		keysP1.Points.text=  "Score: \n"+keysP1.ScoreAttackPoints.toString() ;
+ 		keysP1.Points.text=  "Score: \n"+parseInt(keysP1.ScoreAttackPoints).toString() ;
 
 
 	keysP2.ScoreAttackPoints += Math.abs(Math.ceil( keysP2.character.health*10 ));
- 		keysP2.Points.text=  "Score: \n"+keysP2.ScoreAttackPoints.toString() ;
+ 		keysP2.Points.text=  "Score: \n"+parseInt(keysP2.ScoreAttackPoints).toString() ;
 
 		delete document["allowCountDownTimer"];
 
