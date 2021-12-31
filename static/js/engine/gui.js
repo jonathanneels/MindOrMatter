@@ -13,6 +13,7 @@ $("#hP1").html('<div id="spanGameStart" style="margin-top:-15px;padding:7px;">'+
 '  	    <option value="5">Online host</option>'+
 '  	    <option value="6">Online join</option>'+
 '  	    <option value="7">Tutorial</option>'+
+'  	    <option value="8">Unique Mode A</option>'+
 ''+
 '  </select> '+
 '   <span style="font-size:medium;float:right;margin-top:15px;" >'+
@@ -753,6 +754,13 @@ $('body').on('change', '#selMode', function(){//REF: https://stackoverflow.com/q
 	if($('#selMode option:selected').val() ==7){
 	
 	tutorialScreen();
+	
+	$("#selMode option:eq(1)").prop('selected', true);  
+	gameSettings.gameMode=1; 
+	}
+	else 	if($('#selMode option:selected').val() ==8){
+	
+	launchUniqueModeA();
 	
 	$("#selMode option:eq(1)").prop('selected', true);  
 	gameSettings.gameMode=1; 

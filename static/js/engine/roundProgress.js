@@ -280,9 +280,7 @@ function endOfGame()
 
 		 if( (gameSettings.gameMode ==1 ) &&  !document["demoMode"] ){ // arcade mode
 		 
-		 	keysP2.ScoreAttackPoints  = 0;
- 		keysP2.Points.text=  "Score: \n"+parseInt(keysP2.ScoreAttackPoints).toString() ;
-
+ 
 		 	 if(typeof  document["arcadeStageIncrease"] == "undefined" ){document["arcadeStageIncrease"] =0;}
 		 document["arcadeStageIncrease"] +=1;		 
 		  if (document["arcadeStageIncrease"] >=8)
@@ -307,7 +305,13 @@ function endOfGame()
 
 			  $("#guide").show();
  		  $("#hP1").text( "Match "+(document["arcadeStageIncrease"]+1) .toString()+" from 8.");$("#hP2").text( "...");
-		  setTimeout(function(){ 		document["allowCountDownTimer"]=true;	  $("#guide").hide();}, 1000);
+		  setTimeout(function(){ 		
+		  document["allowCountDownTimer"]=true;	  $("#guide").hide();
+		  
+		  		 	keysP2.ScoreAttackPoints  = 0;
+ 		keysP2.Points.text=  "Score: \n"+parseInt(keysP2.ScoreAttackPoints).toString() ;
+
+		  }, 1000);
 
 	  return;
 	  }
@@ -340,9 +344,6 @@ $("#hP2").text(keysP2.character.texts.victoryTexts[getRandomInt(0, keysP2.charac
 
 if(gameSettings.gameMode ==2 ){
 	
-			 	keysP2.ScoreAttackPoints  = 0;
- 		keysP2.Points.text=  "Score: \n"+parseInt(keysP2.ScoreAttackPoints).toString() ;
-
 	keysP1.character.health= keysP1.character.maxHealth;
 resetParamsPlayField();
 guiSettings(true);
@@ -630,8 +631,9 @@ function newRound(isDontSkipScore)
 		return;
 	}
 	else{
-			keysP2.ScoreAttackPoints  = 0;
- 		keysP2.Points.text=  "Score: \n"+keysP2.ScoreAttackPoints.toString() ;
+ 
+ 		  		 	keysP2.ScoreAttackPoints  = 0;
+ 		keysP2.Points.text=  "Score: \n"+parseInt(keysP2.ScoreAttackPoints).toString() ;
 
 		  setNewCharacter(keysP2); 
 
