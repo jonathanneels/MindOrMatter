@@ -12,7 +12,7 @@ const options = {
  var port = 11111;
  var ip= "127.0.0.1";
  
- const wss = new WebSocket.Server({ port: port+1 });
+ const wss = new WebSocket.Server({ port: port+1 }); // note: see index_HEROKU.js for a project on the same port 
 
  require('dns').lookup(require('os').hostname(), function (err, add, fam) {
  // console.log('addr: '+add);
