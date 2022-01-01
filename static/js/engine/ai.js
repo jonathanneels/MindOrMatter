@@ -1,8 +1,10 @@
  function aiBehaviour(whoKeys)
 {
-whoKeys.left=0;	whoKeys.right=0;
-whoKeys.front=0;	whoKeys.back=0;whoKeys.jump=0;
+whoKeys.left=0;	whoKeys.right=0; whoKeys.jump=0;
 
+if( (gameSettings.aiInteractionFrequency > 30 || whoKeys.character.energy < 20)&& getRandomInt(0,15) ==15 ){ // keeping movement dynamic, few horizontal stops
+whoKeys.front=0;	whoKeys.back=0; return;
+}
 if(typeof boxFloorA != "undefined" && whoKeys["connectedFloor"] && getRandomInt(0,10) ==10)
  {
 	 delete  whoKeys["connectedFloor"];

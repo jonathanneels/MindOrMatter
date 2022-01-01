@@ -724,7 +724,7 @@ if(   whoKeys.who==0){
  if(whoKeys.character.isWithEnergy){
   whoKeys.healtBarBox.alpha=whoKeys.character.energy/100;
   if(whoKeys.character.energy< 100){
-whoKeys.character.energy+=0.1;
+whoKeys.character.energy+=0.2;//default was 0.1, but that's really slow in current setting (making custom param in future?).
 }
 if(whoKeys.character.energy< 0){whoKeys.character.energy=0;}
 else if(whoKeys.character.energy> whoKeys.character.maxEnergy){whoKeys.character.energy=whoKeys.character.maxEnergy;}} else{whoKeys.character.energy=whoKeys.character.maxEnergy;}

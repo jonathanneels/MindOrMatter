@@ -69,7 +69,7 @@ switch(id) {
   case 0:
   if(  ((whoKeys.character.special > (whoKeys.character.maxSpecial/4)) || !whoKeys.character.isWithSpecial  ) && (whoKeys.attackMesh.intersectsMesh(whoKeys.hostileKey.mainMesh)|| whoKeys.attackMesh.intersectsMesh(whoKeys.hostileKey.mainUpperMesh))){
 whoKeys.character.special=0; //checkForStunInjection(whoKeys); => special is not a just hit attack, so Thane cannot use stun here.
- whoKeys.hostileKey.comboCount  =0;whoKeys.comboCount   =0; whoKeys.hostileKey.dothealth= whoKeys.character.dotHealthTime; whoKeys.hostileKey.textBox.text =  ("Body drain");clearTimeout(whoKeys.hostileKey.textBoxTimeout);whoKeys.hostileKey.textBoxTimeout= setTimeout(function(){ whoKeys.hostileKey.textBox.text =  ""; }, 500);
+ whoKeys.hostileKey.comboCount  =0;whoKeys.comboCount   =0; whoKeys.hostileKey.dothealth= whoKeys.character.dotHealthTime; whoKeys.ScoreAttackPoints +=800*(whoKeys.comboCount+1);whoKeys.hostileKey.textBox.text =  ("Body drain");clearTimeout(whoKeys.hostileKey.textBoxTimeout);whoKeys.hostileKey.textBoxTimeout= setTimeout(function(){ whoKeys.hostileKey.textBox.text =  ""; }, 500);
   }
   else {
   isOktoShowVisual= false;
@@ -80,7 +80,7 @@ whoKeys.character.special=0; //checkForStunInjection(whoKeys); => special is not
     if( (  (whoKeys.character.energy > (whoKeys.character.maxEnergy/4)) || !whoKeys.character.isWithEnergy  ) &&(whoKeys.attackMesh.intersectsMesh(whoKeys.hostileKey.mainMesh)|| whoKeys.attackMesh.intersectsMesh(whoKeys.hostileKey.mainUpperMesh))){
 
 whoKeys.character.energy=whoKeys.character.energy/2; //checkForStunInjection(whoKeys); => special is not a just hit attack, so Thane cannot use stun here.
- whoKeys.hostileKey.comboCount  =0;whoKeys.comboCount   =0; whoKeys.hostileKey.dotenergy= whoKeys.character.dotEnergyTime; whoKeys.hostileKey.textBox.text =  ("Mind drain");clearTimeout(whoKeys.hostileKey.textBoxTimeout);whoKeys.hostileKey.textBoxTimeout= setTimeout(function(){ whoKeys.hostileKey.textBox.text =  ""; }, 500);
+ whoKeys.hostileKey.comboCount  =0;whoKeys.comboCount   =0; whoKeys.hostileKey.dotenergy= whoKeys.character.dotEnergyTime; whoKeys.ScoreAttackPoints +=800*(whoKeys.comboCount+1);whoKeys.hostileKey.textBox.text =  ("Mind drain");clearTimeout(whoKeys.hostileKey.textBoxTimeout);whoKeys.hostileKey.textBoxTimeout= setTimeout(function(){ whoKeys.hostileKey.textBox.text =  ""; }, 500);
 }
 else {
   isOktoShowVisual= false;
@@ -92,7 +92,7 @@ else {
 
  whoKeys.character.energy=whoKeys.character.energy/2; //checkForStunInjection(whoKeys); => special is not a just hit attack, so Thane cannot use stun here.
 
- whoKeys.hostileKey.comboCount  =0;whoKeys.comboCount   =0; whoKeys.hostileKey.dotspecial= whoKeys.character.dotSpecialTime; whoKeys.hostileKey.textBox.text =  ("Soul drain");clearTimeout(whoKeys.hostileKey.textBoxTimeout);whoKeys.hostileKey.textBoxTimeout= setTimeout(function(){ whoKeys.hostileKey.textBox.text =  ""; }, 500);
+ whoKeys.hostileKey.comboCount  =0;whoKeys.comboCount   =0; whoKeys.hostileKey.dotspecial= whoKeys.character.dotSpecialTime; whoKeys.ScoreAttackPoints +=800*(whoKeys.comboCount+1);whoKeys.hostileKey.textBox.text =  ("Soul drain");clearTimeout(whoKeys.hostileKey.textBoxTimeout);whoKeys.hostileKey.textBoxTimeout= setTimeout(function(){ whoKeys.hostileKey.textBox.text =  ""; }, 500);
    }
    else {
   isOktoShowVisual= false;
@@ -111,6 +111,7 @@ whoKeys.hostileKey.character.health=myHealth;
   whoKeys.isStunned=true; 
   whoKeys.isDown=false;
 whoKeys["STUNNED"]=true;
+whoKeys.ScoreAttackPoints +=800*(whoKeys.comboCount+1);
 
  clearTimeout(whoKeys.textBoxTimeout);whoKeys.textBoxTimeout= setTimeout(function(){   whoKeys.textBox.text =  ""; }, 500);
       setTimeout(function(){   whoKeys.isStunned=false; delete whoKeys["STUNNED"]; }, 1500);
@@ -1021,7 +1022,8 @@ switch(id) {
 
 
 
-	  whoKeys.textBox.text =  ("Broke FREE!");
+	  whoKeys.textBox.text =  ("Broke FREE!");whoKeys["recover"]=true;
+	  
   clearTimeout(whoKeys.textBoxTimeout);whoKeys.textBoxTimeout= setTimeout(function(){   whoKeys.textBox.text =  ""; }, 500);
   
   if( Math.abs(   (whoKeys.mainMesh.position.x)- (whoKeys.hostileKey.mainMesh.position.x) )< 5 ){
@@ -1583,11 +1585,45 @@ delete whoKeys["showComboStarter"];
  	 setTimeout(function(){  delete whoKeys["isAllowedToAlterVisual"]; }, 700);
 
 }
+
+ if( whoKeys["recover"]){ 
+  					
+   delete whoKeys["recover"];
+
+  var recoverM=alterEffectVisual(whoKeys,whoKeys.mainUpperMesh,whoKeys.character.images.recoverEffectImages , 5);
+  if(typeof recoverM != "undefined"){
+     playOneShot(whoKeys.character.sounds.recoverSound);
+
+    clearTimeout(actionTimeout); 
+ 
+
+   // whoKeys["recoverFeedGiven"]=true;
+
+recoverM.scaling = new BABYLON.Vector3(2.5+whoKeys.character.sizeModifier,2.5+whoKeys.character.sizeModifier,2.5+whoKeys.character.sizeModifier);
+recoverM.material.alpha = 0.7;//ref: https://stackoverflow.com/questions/59315347/using-the-alpha-in-babylon-mesh-color-vertices
+ recoverM.material.diffuseTexture.hasAlpha = true;
+recoverM.material.useAlphaFromDiffuseTexture = true;
+
+recoverM.position.y = whoKeys.mainMesh.position.y+0.3
+ recoverM.position.x = whoKeys.mainMesh.position.x
+
+if(worldFacing ==0)
+{
+recoverM.position.x = recoverM.position.x 
+}
+else if(worldFacing==1)
+{
+recoverM.position.x = recoverM.position.x 
+}
+}
+ 
+  }
+  
  if( whoKeys["Blocked"]){ 
   					
    delete whoKeys["Blocked"];
 
-  var shieldingM=alterEffectVisual(whoKeys,whoKeys.mainUpperMesh,whoKeys.character.images.blockingEffectImages , 2);
+  var shieldingM=alterEffectVisual(whoKeys,whoKeys.mainUpperMesh,whoKeys.character.images.blockingEffectImages , 3);
   if(typeof shieldingM != "undefined"){
      playOneShot(whoKeys.character.sounds.blockSound);
 

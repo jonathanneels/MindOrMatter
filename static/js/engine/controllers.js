@@ -567,7 +567,7 @@ function touchController(whoKeys)
  				    if(whoKeys["controlID"] != 0){return;}
 
    clearTimeout(kickStartTimeout);
-kickStartTimeout=setTimeout(function(){  whoKeys.kick=1;}, 50);
+kickStartTimeout=setTimeout(function(){  whoKeys.kick=1;}, 20);
 
   }).bind('mouseup mouseleave touchend', function() {
 	  
@@ -583,7 +583,7 @@ kickTimeout=setTimeout(function(){ whoKeys.kick=0; }, 100);
   				    if(whoKeys["controlID"] != 0){return;}
 
   clearTimeout(uniqueStartTimeout);
-uniqueStartTimeout=setTimeout(function(){  whoKeys.unique=1;}, 50);
+uniqueStartTimeout=setTimeout(function(){  whoKeys.unique=1;}, 20);
 
   }).bind('mouseup mouseleave touchend', function() {
 	  
@@ -600,7 +600,7 @@ uniqueTimeout=setTimeout(function(){ whoKeys.unique=0;}, 100);
 		  				    if(whoKeys["controlID"] != 0){return;} 
  
  clearTimeout(verticalStartTimeout);
-verticalStartTimeout=setTimeout(function(){  whoKeys.verticalhit=1;}, 50);
+verticalStartTimeout=setTimeout(function(){  whoKeys.verticalhit=1;}, 20);
 
   }).bind('mouseup mouseleave touchend', function() {
 	  
@@ -615,7 +615,7 @@ verticalTimeout=setTimeout(function(){  whoKeys.verticalhit=0;}, 100);
   				    if(whoKeys["controlID"] != 0){return;}
 
 clearTimeout(horizontalStartTimeout);
-horizontalStartTimeout=setTimeout(function(){  whoKeys.horizontalhit=1;}, 50);
+horizontalStartTimeout=setTimeout(function(){  whoKeys.horizontalhit=1;}, 20);
 
   }).bind('mouseup mouseleave touchend', function() {
 	  
@@ -629,7 +629,7 @@ horizontalTimeout=setTimeout(function(){  whoKeys.horizontalhit=0;}, 100);
    				    if(whoKeys["controlID"] != 0){return;}
 
  clearTimeout(rangeStartTimeout);
-rangeStartTimeout=setTimeout(function(){  whoKeys.rangehit=1;}, 50);
+rangeStartTimeout=setTimeout(function(){  whoKeys.rangehit=1;}, 20);
 
   }).bind('mouseup mouseleave touchend', function() {
 	  
