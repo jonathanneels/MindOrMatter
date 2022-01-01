@@ -32,3 +32,7 @@ Enjoy (and place your creations in the issues or Projects here on github)!
 Do note: 
 Using the characters or this engine requires you to refer to Jonathan F.M. Neels. 
 If you make profit +10.000 euro, you must give me a honest share of 2.25 percent ;).
+
+Do note B:
+In static you'll find sticktorial_char_designer.html. All character designs (not the particles) are made with this homemade graphics tool. 
+You can use it at your heart's content. 
