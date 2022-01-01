@@ -612,13 +612,13 @@ function newRound(isDontSkipScore)
 		if(isDontSkipScore){
 			if(keysP2.character.maxHealth != keysP2.character.health){
 		keysP1.ScoreAttackPoints += Math.abs(Math.ceil( keysP1.character.health*10 ));
- 		keysP1.Points.text=  "Score: \n"+keysP1.ScoreAttackPoints.toString() ;
+ 		keysP1.Points.text=  "Score: \n"+parseInt(keysP1.ScoreAttackPoints).toString() ;
 		}
 		
 		if(gameSettings.gameMode !==1){
 						if(keysP1.character.maxHealth != keysP1.character.health){
 	keysP2.ScoreAttackPoints += Math.abs(Math.ceil( keysP2.character.health*10 ));
- 		keysP2.Points.text=  "Score: \n"+keysP2.ScoreAttackPoints.toString() ;
+ 		keysP2.Points.text=  "Score: \n"+parseInt(keysP2.ScoreAttackPoints).toString() ;
 }
 }}
 	 if(gameSettings.gameMode ==2  ){ // survival mode
@@ -834,7 +834,7 @@ clearTimeout(keysP1.textBoxTimeout);
   
      		keysP1.ScoreAttackPoints -= Math.ceil( keysP1.character.maxHealth*100 );
 			if(keysP1.ScoreAttackPoints <0){keysP1.ScoreAttackPoints=0;}
- 		keysP1.Points.text=  "Score: \n"+keysP1.ScoreAttackPoints.toString() ;
+ 		keysP1.Points.text=  "Score: \n"+parseInt(keysP1.ScoreAttackPoints).toString() ;
 
    setTimeout(function(){  
 
@@ -859,7 +859,7 @@ clearTimeout(keysP1.textBoxTimeout);
 	  
 	       		keysP1.ScoreAttackPoints -= Math.ceil( keysP1.character.maxHealth*100 );
 							if(keysP1.ScoreAttackPoints <0){keysP1.ScoreAttackPoints=0;}
- 		keysP1.Points.text=  "Score: \n"+keysP1.ScoreAttackPoints.toString() ;
+ 		keysP1.Points.text=  "Score: \n"+parseInt(keysP1.ScoreAttackPoints).toString() ;
 
 	 setTimeout(function(){  
 
@@ -882,7 +882,7 @@ clearTimeout(keysP2.textBoxTimeout);
    
    		keysP2.ScoreAttackPoints -= Math.ceil( keysP2.character.maxHealth*100 );
 					if(keysP2.ScoreAttackPoints <0){keysP2.ScoreAttackPoints=0;}
- 		keysP2.Points.text=  "Score: \n"+keysP2.ScoreAttackPoints.toString() ;
+ 		keysP2.Points.text=  "Score: \n"+parseInt(keysP2.ScoreAttackPoints).toString() ;
 
  setTimeout(function(){
   if(gameSettings.rounds > gameSettings.p1Score || ( gameSettings.gameMode ==2  && gameSettings.p1Score > gameSettings.p2Score )){  
@@ -904,7 +904,7 @@ gameSettings.p1Score+=1;
 	
 	   		keysP2.ScoreAttackPoints -= Math.ceil( keysP2.character.maxHealth*100 );
 								if(keysP2.ScoreAttackPoints <0){keysP2.ScoreAttackPoints=0;}
- 		keysP2.Points.text=  "Score: \n"+keysP2.ScoreAttackPoints.toString() ;
+ 		keysP2.Points.text=  "Score: \n"+parseInt(keysP2.ScoreAttackPoints).toString() ;
 
  setTimeout(function(){
 

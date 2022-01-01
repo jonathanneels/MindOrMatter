@@ -557,7 +557,7 @@ timerText.top=50; //timerText.top=80;//"10%";
 
 		if( typeof keysP1.ScoreAttackPoints == "undefined"){
 		keysP1.ScoreAttackPoints=0;}
-     p1ScoreAttackPointsText = createText("Score: \n"+keysP1.ScoreAttackPoints.toString() ); 
+     p1ScoreAttackPointsText = createText("Score: \n"+parseInt(keysP1.ScoreAttackPoints).toString() ); 
  p1ScoreAttackPointsText.top= "1%";
      p1ScoreAttackPointsText.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
    p1ScoreAttackPointsText.left="5%";
@@ -565,7 +565,7 @@ timerText.top=50; //timerText.top=80;//"10%";
 
 		if( typeof keysP2.ScoreAttackPoints == "undefined"){ 
 		keysP2.ScoreAttackPoints=0;}
-     p2ScoreAttackPointsText = createText(":Score \n"+keysP2.ScoreAttackPoints.toString() ); 
+     p2ScoreAttackPointsText = createText(":Score \n"+parseInt(keysP2.ScoreAttackPoints).toString() ); 
  p2ScoreAttackPointsText.top= "1%";
      p2ScoreAttackPointsText.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
    p2ScoreAttackPointsText.left="-5%";
