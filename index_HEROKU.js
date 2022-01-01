@@ -4,19 +4,19 @@ const http = require('http');
 var os = require( 'os' );
 const path = require('path');
 
-//const WebSocket = require('ws');//https://www.linode.com/docs/guides/introduction-to-websockets/
+const { Server } = require('ws');
 
  
  
- var port = process.env.PORT || 8000;
+ 
+ var port = process.env.PORT || 8000;  // IMPORTANT: WEBSERVER PORT HERE IS SAME AS HTTP PORT (index.js project is the http port + 1)
   
-// const wss = new WebSocket.Server({ port: port+1 });
 
  	launchServer();
 
 
 function launchServer(){
-http.createServer((req, res) => {
+var serverMain= http.createServer((req, res) => {
 
 var feedbackUrl = req.url;
 
@@ -53,10 +53,13 @@ var feedbackUrl = req.url;
   
 }).listen(port, () => {
     console.log("Running on port ${ PORT }. (Default = 8000). SET  static/assets/gameConfig.config to correct directory!");
-});}
+});
 
 
-/*wss.on('connection', function connection(ws) {
+console.log(serverMain)
+const wss = new Server({ server: serverMain });//REF: https://stackoverflow.com/questions/59706001/why-do-we-pass-an-http-server-to-a-websocket-instance-in-javascript-on-nodejs
+
+ wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
 	  var feedbackList= message.split(',');  // prefer list instead of json, much smaller data exchange.
 	  wss[feedbackList[0]]=feedbackList;
@@ -97,6 +100,6 @@ var feedbackUrl = req.url;
 
  // ws.send( 'something'); => outside is once
 });
-*/
+ }
 
  
