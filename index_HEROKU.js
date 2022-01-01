@@ -5,7 +5,7 @@ var os = require( 'os' );
 const path = require('path');
 
 
-//const { Server } = require('ws'); => does not work on heroku atm ...
+var WebSocketServer = require('ws').Server
 
  
  
@@ -57,8 +57,8 @@ var feedbackUrl = req.url;
 });
 
 
-/* => does not work on heroku atm :(.
-const wss = new Server({ server: serverMain });//REF: https://stackoverflow.com/questions/59706001/why-do-we-pass-an-http-server-to-a-websocket-instance-in-javascript-on-nodejs
+ 
+var wss = new WebSocketServer({ server: serverMain });//REF: https://github.com/heroku-examples/node-ws-test & https://stackoverflow.com/questions/59706001/why-do-we-pass-an-http-server-to-a-websocket-instance-in-javascript-on-nodejs
 
  wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
@@ -101,7 +101,7 @@ const wss = new Server({ server: serverMain });//REF: https://stackoverflow.com/
 
  // ws.send( 'something'); => outside is once
 });
-¨*/
+  
  }
 
  
