@@ -1,13 +1,13 @@
- 	function packageContent(id, isGameOverAsInt, posX,posY,posZ,pHealth,pEnergy,pSpecial,whoCharIndex,stageIndex, rounds,p1score,p2score,lastMoveEntries,is2dAsInt,isWithWallsAsInt,isKneelBlockAsInt,playerControllerId,charColorIndex,stageColorIndex, timer)//, isJumpingAsInt) //AsInt = 0 => false, 1 => true
+ 	function packageContent(id, isGameOverAsInt, posX,posY,posZ,pHealth,pEnergy,pSpecial,whoCharIndex,stageIndex, rounds,p1score,p2score,lastMoveEntries,is2dAsInt,isWithWallsAsInt,isKneelBlockAsInt,playerControllerId,charColorIndex,stageColorIndex, timer, ScoreAttackPointsP1, ScoreAttackPointsP2)//, isJumpingAsInt) //AsInt = 0 => false, 1 => true
 	{
 		var pack=id.toString()+","+isGameOverAsInt.toString()
 		+","+posX.toString()+","+posY.toString()+","+posZ.toString()+","+pHealth.toString()+","+pEnergy.toString()+","+pSpecial.toString()+","+whoCharIndex.toString()+","+stageIndex.toString()
 	+	","+rounds.toString()+","+p1score.toString()+","+p2score.toString()+","+lastMoveEntries.toString()+","+is2dAsInt.toString()+","+isWithWallsAsInt.toString() +","+isKneelBlockAsInt.toString()
-	+","+playerControllerId.toString()		+","+charColorIndex.toString()  +","+stageColorIndex.toString() +","+timer.toString()	//+","+isJumpingAsInt.toString();
+	+","+playerControllerId.toString()		+","+charColorIndex.toString()  +","+stageColorIndex.toString() +","+timer.toString() +","+ScoreAttackPointsP1.toString() +","+ScoreAttackPointsP2.toString()	//+","+isJumpingAsInt.toString();
 		
 		return pack;
 		
-	}
+	} // NOTE tbc: p1 & p2 score are not useful? Make a new packageContent with very short info: function packageCompressedContent
 
  // Initialize WebSocket connection and event handlers
     function startConnection(gameSettings, whoKeys) {  
@@ -26,6 +26,7 @@
  
  		 endgameTimer=parseInt(gameSettings.matchTimer);
 delete document["allowCountDownTimer"];
+ 
         }
 
         // Listen for the close connection event
@@ -33,6 +34,7 @@ delete document["allowCountDownTimer"];
             console.log("Disconnected: " + e.reason);  
 			delete whoKeys.hostileKey["isHostileCharacterSet"];
 			delete whoKeys.hostileKey["iStageSet"];
+				resetParamsPlayField(); 
 	startProject(true);
 	setTimeout(function() {	alert("game ended, back to the menu.");}, 100);
 
@@ -125,6 +127,8 @@ whoKeys.hostileKey["iStageSet"]=true;
   setEmissiveColorBackground(scene.getMeshByName('planeBackground')); 
  
 } 
+whoKeys.ScoreAttackPoints= parseInt(feedbackList[21]); 
+whoKeys.hostileKey.ScoreAttackPoints= parseInt(feedbackList[22]);
 endgameTimer = parseInt(feedbackList[20]);
 gameSettings.matchTimer  = parseInt(feedbackList[20]);
 gameSettings.rounds = parseInt(feedbackList[10]);
@@ -209,7 +213,7 @@ if(parseInt(feedbackList[17]) == 0){//mouse controller
 			
 			 sendMessage(packageContent(gameSettings.myGameId,	 boolToIntConverter(gameSettings.isEndgame), whoKeys.mainMesh.position.x,whoKeys.mainMesh.position.y,whoKeys.mainMesh.position.z,whoKeys.character.health  ,
 			whoKeys.character.energy,whoKeys.character.special ,gameSettings["whoCharIndexKeysP"+(whoKeys.who+1).toString()],gameSettings.stageIndex,gameSettings.rounds,gameSettings.p1Score,gameSettings.p2Score, 
-			lastMoves,boolToIntConverter(gameSettings.isAbsolute2D),boolToIntConverter(gameSettings.isEndgameWithWalls),isKneelBlockNowInt,whoKeys["controlID"],playerColorId,backgroundColorId,gameSettings.matchTimer));
+			lastMoves,boolToIntConverter(gameSettings.isAbsolute2D),boolToIntConverter(gameSettings.isEndgameWithWalls),isKneelBlockNowInt,whoKeys["controlID"],playerColorId,backgroundColorId,gameSettings.matchTimer,whoKeys.ScoreAttackPoints,whoKeys.hostileKey.ScoreAttackPoints));
          }
     }
 
@@ -217,9 +221,21 @@ if(parseInt(feedbackList[17]) == 0){//mouse controller
     function sendMessage(msg) { 
   if($("#btnYes").is(":visible"))   // cheap trick to see end game with low resource funding.
 {
+	         /*        if (confirm("Another game?")) {   => TBC, works but need refinements
+	resetParamsPlayField();
+/////guiSettings(true);
+	keysP1.character.health= keysP1.character.maxHealth;
+		keysP2.character.health= keysP2.character.maxHealth; 
+		gameSettings.p1Score=0;
+		gameSettings.p2Score=0;
+gameSettings.rounds=0;
+$("#guide").hide();
+  ws.send(msg); 
+  } else { */
 	ws.close(); //handling in onclose() function
 	delete 		 document["allowCountDownTimer"]; 
  	return;
+	// }
 }
 
 else{	

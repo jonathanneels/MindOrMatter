@@ -305,7 +305,8 @@ else   ( typeof projectileList[g] != "undefined" &&  typeof projectileList[i] !=
 	}
 else{
 //checkForStunInjection(whoKeys); => Thane needs to do physical damage, character distance stun, needs to be added (json var to add).
- whoKeys.comboCount  =0;whoKeys.hostileKey.comboCount  +=0.1;  whoKeys.character.health-=1+whoKeys.character.special;if(whoKeys.hostileKey.character.isWithHealthRestore){whoKeys.hostileKey.character.health+=1+whoKeys.character.special;} 
+ whoKeys.comboCount  =0;whoKeys.hostileKey.comboCount  +=0.1;  whoKeys.character.health-=1+whoKeys.character.special;
+ //if(whoKeys.hostileKey.character.isWithHealthRestore){whoKeys.hostileKey.character.health+=1+whoKeys.character.special;}  => NO HEALTH RESTORE FOR NORMAL PROJECTILE (json param, like stun & Thane)
  whoKeys.textBox.text =  ("Projectile!");clearTimeout(whoKeys.textBoxTimeout);whoKeys.textBoxTimeout= setTimeout(function(){ whoKeys.textBox.text =  ""; 
   // projectileList[i].material.dispose(); 
   // projectileList[i].dispose();projectileList[i]=null;         projectileList[i].splice(i, 1);
@@ -341,7 +342,7 @@ catch(err){
 	//overrideIdleMesh(whoKeys, whoKeys.character.images.painImages, whoKeys.hostileKey.character.launchingTime*10);
 
 	whoKeys.comboCount  =0;whoKeys.hostileKey.comboCount  +=0.1;  whoKeys.character.health-=2+whoKeys.character.special;
-if(whoKeys.hostileKey.character.isWithHealthRestore){whoKeys.hostileKey.character.health+=2+whoKeys.character.special/*damageModifier*/;} 
+//if(whoKeys.hostileKey.character.isWithHealthRestore){whoKeys.hostileKey.character.health+=2+whoKeys.character.special/*damageModifier*/;}   => NO HEALTH RESTORE FOR NORMAL PROJECTILE (json param, like stun & Thane)
 	whoKeys.textBox.text =  ("CRITICAL - Projectile!");clearTimeout(whoKeys.textBoxTimeout);whoKeys.textBoxTimeout= setTimeout(function(){ whoKeys.textBox.text =  ""; 
  }, 500);
  
