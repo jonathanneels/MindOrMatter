@@ -2,6 +2,34 @@
 {
 whoKeys.left=0;	whoKeys.right=0; whoKeys.jump=0;
 
+// AI subtle cheat: 
+if(gameSettings.aiCount <2 && gameSettings.aiInteractionFrequency < 10)
+{
+	whoKeys.character.damageModifier=20;//50;
+	
+}
+else if(gameSettings.aiCount <2 && gameSettings.aiInteractionFrequency < 20)
+{
+	whoKeys.character.damageModifier=15; 
+	
+}
+else if(gameSettings.aiCount <2 && gameSettings.aiInteractionFrequency < 30)
+{
+	whoKeys.character.damageModifier=10;
+	
+}
+else if(gameSettings.aiCount <2 && gameSettings.aiInteractionFrequency < 40)
+{
+	whoKeys.character.damageModifier=5;
+	
+}
+else //if(gameSettings.aiCount <2 && gameSettings.aiInteractionFrequency < 50)
+{
+	whoKeys.character.damageModifier=0.1;
+	
+}
+///////////////////////////////////////////////
+
 if( (gameSettings.aiInteractionFrequency > 30 || whoKeys.character.energy < 20)&& getRandomInt(0,15) ==15 ){ // keeping movement dynamic, few horizontal stops
 whoKeys.front=0;	whoKeys.back=0; return;
 }
@@ -76,7 +104,7 @@ setTimeout(function(){
 		}
 		else if( getRandomInt(0,7) ==7){
 
-			if(gameSettings.aiCount <2){
+			if(gameSettings.aiCount <2&& getRandomInt(0,5) ==5){
 			whoKeys.jump=1;}
 			else  if(gameSettings.aiCount >1 && getRandomInt(0,10) ==10){// ai vs ai, would be a jumpfest.
 			whoKeys.jump=1;}
@@ -94,13 +122,13 @@ setTimeout(function(){
 
 
 
-if( whoKeys.character.energy < 20 || getRandomInt(0,2) ==2)//if(( whoKeys.character.energy < 20 && !gameSettings.isEndgameWithWalls  ) || ( whoKeys.character.energy > 30 && gameSettings.isEndgameWithWalls && getRandomInt(0,2) ==2 ) || (!gameSettings.isEndgameWithWalls && getRandomInt(0,2) ==2 ) )
+if( (whoKeys.character.energy < 20 && getRandomInt(0,5) ==5) || getRandomInt(0,10) ==5)//2)//if(( whoKeys.character.energy < 20 && !gameSettings.isEndgameWithWalls  ) || ( whoKeys.character.energy > 30 && gameSettings.isEndgameWithWalls && getRandomInt(0,2) ==2 ) || (!gameSettings.isEndgameWithWalls && getRandomInt(0,2) ==2 ) )
 {
 
-var distanceKeepingCalc = 5;
+var distanceKeepingCalc = 4 ;//5;
  if(whoKeys["isOtherActionSizeTinyChange"])
   {
-	  distanceKeepingCalc = 3;
+	  distanceKeepingCalc =  323;//3;
   }
 if(whoKeys.character.isCanGoHorizontal && Math.floor(whoKeys.mainMesh.position.x) <  Math.floor(whoKeys.hostileKey.mainMesh.position.x) +distanceKeepingCalc)
 {
@@ -191,7 +219,7 @@ function periodAiActions()
 {
 	
 	
-if(gameSettings.aiCount >0)
+if(gameSettings.aiCount >0 && !document["pauseAI"])
 {
 aiInteractCounter+=1;
 aiHaltCounter+=1;

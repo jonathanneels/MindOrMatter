@@ -279,7 +279,7 @@ Note that we must include prefixes for different browsers, as they don't support
 }
 function startProject(isSkipLaunchGame)
 {
-	
+	 
 	if(!isMobile()){$(".btnControl").hide();}
 
    	$("#btnYes").show();
@@ -312,7 +312,7 @@ startupInterface(isSkipLaunchGame)
  
  
 	
-	
+ 
 }
 
 

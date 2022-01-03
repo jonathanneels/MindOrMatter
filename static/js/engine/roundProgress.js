@@ -232,6 +232,7 @@ for (var i = 0; i < stageList.length; i++) {
 
 function startOfGame()
 {
+
 	    $(document).ready(function(){ 
 
  
@@ -371,11 +372,13 @@ restartGame();
 
 }
 
-}
+ }
 
 
 function restartGame()
 {
+		  document["pauseAI"]=true;  
+
 		$("#btnYes").hide();
 		$("#btnNo").hide();
 
@@ -423,6 +426,8 @@ setControl(p2Control,keysP2);
 
  gameSettings.textBox.text=  (  gameSettings.countdownText);
   gameSettings.textBoxTimeout= setTimeout(function(){ gameSettings.textBox.text =  ""; }, 1500);
+
+delete document["pauseAI"];
 
  }, 3000);
  
