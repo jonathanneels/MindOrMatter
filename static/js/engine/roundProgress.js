@@ -306,6 +306,12 @@ function endOfGame()
 
 			  $("#guide").show();
  		  $("#hP1").text( "Match "+(document["arcadeStageIncrease"]+1) .toString()+" from 8.");$("#hP2").text( "...");
+		  
+		   if(gameSettings.aiCount ==1 && gameSettings.aiInteractionFrequency > 0)
+	  {
+		  
+		  gameSettings.aiInteractionFrequency-=1; 
+	  }
 		  setTimeout(function(){ 		
 		  document["allowCountDownTimer"]=true;	  $("#guide").hide();
 		  
@@ -646,6 +652,12 @@ function newRound(isDontSkipScore)
 	  if(document["survivalStageIncrease"] % 5==0)
 	  {
 		  setNewStage();
+	  }
+	  
+	  if(gameSettings.aiCount ==1 && gameSettings.aiInteractionFrequency > 0)
+	  {
+		  
+		  gameSettings.aiInteractionFrequency-=1; 
 	  }
 }
 } 
