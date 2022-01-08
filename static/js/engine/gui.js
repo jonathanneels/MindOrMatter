@@ -34,16 +34,18 @@ $("#hP1").html('<div id="spanGameStart" style="margin-top:-15px;padding:7px;">'+
 ''+
 '  <select class="singlePlayerSettings p1CharSettings" name="selControlsP1" id="selControlsP1">'+
 '	    <option value="0">Mouse/touch</option>'+
-'		    <option value="1" >Keyboard</option>'+
-'    <option value="2" selected>Gamepad</option>'+
+'		    <option value="1" selected>Keyboard</option>'+
+'    <option value="2" >Gamepad</option>'+
+'    <option value="3"  >MIDI controller</option>'+
 '  </select>'+
 ''+
 '  <span style="float:right;" class="multiPlayerSettings">'+
 ''+
 '    <select name="selControlsP2" id="selControlsP2">'+
-'	    <option value="0">Mouse/touch</option>'+
-'		    <option value="1" selected>Keyboard</option>'+
+'	    <option value="0" selected>Mouse/touch</option>'+
+'		    <option value="1" >Keyboard</option>'+
 '    <option value="2"  >Gamepad</option>'+
+'    <option value="3"  >MIDI controller</option>'+
 '  </select>'+
 '  <select name="selP2" id="selP2" onchange="alterCharacter(keysP2,$(this).val());">'+
 '    <option value="random" selected>random</option>'+

@@ -20,7 +20,9 @@ mat.useAlphaFromDiffuseTexture = false;
 
 var blockholdMouse;
  var isAllowedClickAction=true;
- scene.onPointerDown = (e, pickResult) => {
+ 
+ var timeoutCclickCount;
+  scene.onPointerDown = (e, pickResult) => {
  
  if(whoKeys["controlID"] != 0){return;}
 
@@ -113,13 +115,16 @@ if(!gameSettings.isAbsolute2D){
 
 										if(cclickCount<1 )  
 										{ 
+																				cclickCount=1;
+
+								timeoutCclickCount=	setTimeout(function(){
 										whoKeys.rangehit=1;
-											cclickCount=1;
 											whoKeys.kick=0;
 											 	whoKeys.unique=0;
 
 											  // whoKeys.movementhistory.push("U"); 
-											   setTimeout(function(){ cclickCount=0;  }, 800);
+											 cclickCount=0;
+											 }, 300);
 										} 
 								 else  if(cclickCount ==1 ) // range action (only for mobile/mouse
 											{  
@@ -127,7 +132,8 @@ if(!gameSettings.isAbsolute2D){
 												 whoKeys.kick=1;	//  whoKeys.movementhistory.push("K");  
 												 cclickCount=0;
 						 		 
-											
+												clearTimeout( timeoutCclickCount);
+ 
  											}
 
 
@@ -160,7 +166,7 @@ var mouseNotisHoldMouseToMoveTimeout;
  
   if(whoKeys["controlID"] != 0){return;}
 
-   if (e.button === 1) { //center mouse
+   if (e.button === 1 && whoKeys.kick==1) { //center mouse
 									  whoKeys.kick=0;
 		clearTimeout(whoKeys.actionTimeout); 	whoKeys.actionTimeout=setTimeout(function(){ whoKeys.movementhistory.push(" ");}, 1000);
 
@@ -643,6 +649,98 @@ rangeTimeout=setTimeout(function(){ whoKeys.rangehit=0;}, 100);
 
 }
 
+
+ var midi, mididata, isMidiLaunched;
+ 
+  function launchMidiConnect(whoKeys)
+{
+			    if(whoKeys["controlID"] != 3 ||  (  ( p1Control != 3 && whoKeys.who==0)  || ( p2Control != 3 && whoKeys.who==1) )){return;}  
+
+if(!isMidiLaunched && window.location === window.parent.location){ // not in iframe
+isMidiLaunched=true;
+// request MIDI access
+if (navigator.requestMIDIAccess) {
+    navigator.requestMIDIAccess({
+        sysex: false // this defaults to 'false' and we won't be covering sysex in this article. 
+    }).then(onMIDISuccess, onMIDIFailure);
+} else {
+    console.log("No MIDI support in your browser.");
+}
+function onMIDISuccess(midiAccess) {
+    // when we get a succesful response, run this code
+    console.log('MIDI Access Object', midiAccess);
+	
+	    midi = midiAccess; // this is our raw MIDI data, inputs, outputs, and sysex status
+
+    var inputs = midi.inputs.values();
+    // loop over all available inputs and listen for any MIDI input
+    for (var input = inputs.next(); input && !input.done; input = inputs.next()) {
+        // each time there is a midi message call the onMIDIMessage function
+        input.value.onmidimessage = onMIDIMessage;
+    }
+
+}
+
+function onMIDIFailure(e) {
+    // when we get a failed response, run this code
+    console.log("No access to MIDI devices or your browser doesn't support WebMIDI API. Please use WebMIDIAPIShim " + e);
+}
+function onMIDIMessage(message) {
+    mididata = message.data; // this gives us our [command/channel, note, velocity] data.
+     cmd = mididata[0] >> 4,
+    channel = mididata[0] & 0xf,
+    type = mididata[0] & 0xf0, // channel agnostic message type. Thanks, Phil Burk.
+    noteMidi = mididata[1], // noteMidi here is the the notenumber (59, 60, ....)
+    velocity = mididata[2];
+ 
+ 			    if(whoKeys["controlID"] == 3  ){
+
+    switch (type) {
+        case 144: // noteOn message 
+          //   important:  noteMidi, velocity ;
+		   console.log(noteMidi);
+		            	   if (noteMidi == 1) {  		 moveList(whoKeys);  	 } 
+            if (noteMidi == 3) {  		showOptions();} 
+
+         	if(whoKeys.character.isCanGoVertical && !whoKeys.isStunned){   if (noteMidi == 2) {whoKeys.front=1;}} 
+           if(whoKeys.character.isCanGoVertical && !whoKeys.isStunned){ if (noteMidi == 4){ whoKeys.back=1;}} 
+		   		            	if(whoKeys.character.isCanGoHorizontal && !whoKeys.isStunned){  if (noteMidi == 0) {whoKeys.left=1;	 }}
+          	if(whoKeys.character.isCanGoHorizontal && !whoKeys.isStunned){  if (noteMidi == 5) {whoKeys.right=1; }}
+
+	    	if(whoKeys.character.isCanJump){  if (noteMidi ==7) { if(whoKeys.character.isCanJump){whoKeys.jump=1;}}}
+           	   if (noteMidi == 9) {whoKeys.run = 1;  } 
+
+		    if (noteMidi == 12){ whoKeys.verticalhit=1;}
+            if (noteMidi == 14){ whoKeys.horizontalhit=1;}
+            if (noteMidi == 16){ whoKeys.kick=1;}
+            if (noteMidi == 17){ whoKeys.unique=1;}
+            if (noteMidi == 19){ whoKeys.rangehit=1;}
+
+ 
+             break;
+        case 128: // noteOff message 
+
+             if (noteMidi == 2) {whoKeys.front=0; whoKeys.movementhistory.push("-"); clearTimeout(whoKeys.dashTimeout); whoKeys.dashTimeout=setTimeout(function(){ whoKeys.movementhistory.push(" ");}, 150);}// prevent dash after idle
+            if (noteMidi == 0) {whoKeys.left=0;	 whoKeys.movementhistory.push("-");clearTimeout(whoKeys.dashTimeout);whoKeys.dashTimeout=setTimeout(function(){ whoKeys.movementhistory.push(" ");}, 150);} 
+            if (noteMidi == 4) {whoKeys.back=0; whoKeys.movementhistory.push("-");clearTimeout(whoKeys.dashTimeout);whoKeys.dashTimeout=setTimeout(function(){ whoKeys.movementhistory.push(" ");}, 150);}  // down here if press 1x!
+            if (noteMidi == 5){ whoKeys.right=0; whoKeys.movementhistory.push("-");clearTimeout(whoKeys.dashTimeout);whoKeys.dashTimeout=setTimeout(function(){ whoKeys.movementhistory.push(" ");}, 150);} 
+		   if (noteMidi ==7) {  whoKeys.jump=0;}  
+              if (noteMidi == 9) {whoKeys.run = 0;  } 
+
+			  if (noteMidi == 12){ whoKeys.verticalhit=0; clearTimeout(whoKeys.actionTimeout); whoKeys.actionTimeout=setTimeout(function(){ whoKeys.movementhistory.push(" ");}, 250);}
+            if (noteMidi == 14){ whoKeys.horizontalhit=0;clearTimeout(whoKeys.actionTimeout); whoKeys.actionTimeout=setTimeout(function(){ whoKeys.movementhistory.push(" ");}, 250);}
+            if (noteMidi == 16){ whoKeys.kick=0;clearTimeout(whoKeys.actionTimeout); whoKeys.actionTimeout=setTimeout(function(){ whoKeys.movementhistory.push(" ");}, 250);}
+            if (noteMidi == 17){ whoKeys.unique=0;clearTimeout(whoKeys.actionTimeout); whoKeys.actionTimeout=setTimeout(function(){ whoKeys.movementhistory.push(" ");}, 250);}
+            if (noteMidi == 19){ whoKeys.rangehit=0; clearTimeout(whoKeys.actionTimeout); whoKeys.actionTimeout=setTimeout(function(){ whoKeys.movementhistory.push(" ");}, 250);}
+
+            break;
+    }
+
+}  
+}
+}
+}
+ 
 function setControl(controlId, whoKeys)
 {
 	var id=parseInt(controlId);
@@ -651,16 +749,17 @@ function setControl(controlId, whoKeys)
 switch(id) {
 //default:
   case 0:
-  mouseController(whoKeys)
-		break; 
+  mouseController(whoKeys);
+ 		break; 
     break;
   case 1:
-        keyBoardController(whoKeys) 
-		break;
-
-    break;
+        keyBoardController(whoKeys);
+     break;
   case 2:
    gamePadController(whoKeys);
+   case 3:
+   isMidiLaunched=false;
+      launchMidiConnect(whoKeys); 
 	break;
 }
 
